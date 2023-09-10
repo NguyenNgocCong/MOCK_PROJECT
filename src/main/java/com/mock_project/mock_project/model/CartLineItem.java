@@ -17,7 +17,7 @@ public class CartLineItem {
     private Cart cart;
 
     @ManyToOne
-    @JoinColumn(name = "Variant_Product_id")
+    @JoinColumn(name = "variant_Product_id")
     private VariantProduct variantProduct;
 
     private int quantity;
@@ -26,7 +26,7 @@ public class CartLineItem {
     private boolean isDeleted;
 
     @ManyToOne
-    @JoinColumn(name = "Order_id")
+    @JoinColumn(name = "order_id")
     private Order order;
 
     public Long getId() {
