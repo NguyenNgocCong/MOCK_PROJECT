@@ -1,5 +1,8 @@
 package com.mock_project.mock_project.model;
 import jakarta.persistence.*;
+
+import java.util.List;
+
 @Entity
 @Table(name = "Product")
 public class Product {
@@ -12,7 +15,8 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-
+    @OneToMany(mappedBy = "product") // Quan hệ một-nhiều với VariantProduct
+    private List<VariantProduct> variantProducts;
     public Long getId() {
         return id;
     }
@@ -35,5 +39,13 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<VariantProduct> getVariantProducts() {
+        return variantProducts;
+    }
+
+    public void setVariantProducts(List<VariantProduct> variantProducts) {
+        this.variantProducts = variantProducts;
     }
 }
