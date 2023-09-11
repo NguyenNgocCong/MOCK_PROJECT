@@ -2,8 +2,12 @@ package com.mock_project.mock_project.controller;
 
 import com.mock_project.mock_project.dto.ProductDTO;
 import com.mock_project.mock_project.dto.ProductDetailDTO;
+import com.mock_project.mock_project.mapper.ProductMapper;
+import com.mock_project.mock_project.model.Product;
+import com.mock_project.mock_project.service.CategoryService;
 import com.mock_project.mock_project.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,13 +16,28 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private ProductMapper productMappers;
 
     // API thêm sản phẩm mới
     @PostMapping
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
-        // Triển khai logic để thêm sản phẩm vào cơ sở dữ liệu
-        // Sau khi thêm, trả về sản phẩm đã được tạo dưới dạng DTO
-        return null;
+        // Kiểm tra xem productDTO có categoryId hợp lệ không
+        if (productDTO.getCategoryId() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // Tạo sản phẩm mới bằng ProductService
+        Product createdProduct = productService.createProduct(productDTO);
+
+        if (createdProduct != null) {
+            ProductDTO createdProductDTO = productMappers.toProductDTO(createdProduct);
+            return new ResponseEntity<>(createdProductDTO, HttpStatus.CREATED);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     // API cập nhật thông tin sản phẩm
