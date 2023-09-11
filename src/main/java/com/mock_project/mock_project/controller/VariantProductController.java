@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/variant-products")
 public class VariantProductController {
@@ -35,5 +38,10 @@ public class VariantProductController {
         // Triển khai logic để xóa sản phẩm biến thể
         // Trả về thông báo xóa thành công
         return null;
+    }
+    @GetMapping("/{productId}/variant-products")
+    public ResponseEntity<List<VariantProductDTO>> getVariantProductsByProductId(@PathVariable Long productId) {
+        List<VariantProductDTO> variantProducts = variantProductService.getVariantProductsByProductId(productId);
+        return ResponseEntity.ok(variantProducts);
     }
 }
