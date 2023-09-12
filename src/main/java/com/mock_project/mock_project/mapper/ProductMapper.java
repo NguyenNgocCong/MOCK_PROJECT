@@ -11,12 +11,23 @@ import org.mapstruct.Named;
 public interface ProductMapper {
     @Mapping(source = "category", target = "categoryId", qualifiedByName = "categoryToLong")
     ProductDTO toProductDTO(Product product);
-    Product toProduct(ProductDTO productDTO);
+    @Mapping(source = "categoryId", target = "category.id")
+    Product productDTOToProduct(ProductDTO productDTO);
     // Ánh xạ từ Category sang Long
     @Named("categoryToLong")
     default Long mapCategoryToLong(Category category) {
         if (category != null) {
             return category.getId();
+        }
+        return null;
+    }
+    // Ánh xạ từ Long sang Category
+    @Named("longToCategory")
+    default Category mapLongToCategory(Long categoryId) {
+        if (categoryId != null) {
+            Category category = new Category();
+            category.setId(categoryId);
+            return category;
         }
         return null;
     }

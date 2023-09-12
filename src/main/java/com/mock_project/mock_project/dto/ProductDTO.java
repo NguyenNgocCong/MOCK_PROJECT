@@ -1,5 +1,8 @@
 package com.mock_project.mock_project.dto;
 
+import lombok.Data;
+
+@Data
 public class ProductDTO {
     private Long id;
     private String name;

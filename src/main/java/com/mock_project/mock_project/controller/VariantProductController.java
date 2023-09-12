@@ -1,7 +1,10 @@
 package com.mock_project.mock_project.controller;
 
 import com.mock_project.mock_project.dto.VariantProductDTO;
+import com.mock_project.mock_project.mapper.VariantProductMapper;
+import com.mock_project.mock_project.model.VariantProduct;
 import com.mock_project.mock_project.service.VariantProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +18,39 @@ import java.util.List;
 public class VariantProductController {
     @Autowired
     private VariantProductService variantProductService;
-
+    @Autowired
+    private VariantProductMapper variantProductMapper;
     // API thêm sản phẩm biến thể mới
     @PostMapping
     public ResponseEntity<VariantProductDTO> createVariantProduct(@RequestBody VariantProductDTO variantProductDTO) {
-        // Triển khai logic để thêm sản phẩm biến thể vào cơ sở dữ liệu
-        // Sau khi thêm, trả về sản phẩm biến thể đã được tạo dưới dạng DTO
-        return null;
+        // Gọi VariantProductService để tạo sản phẩm biến thể
+        VariantProduct createdVariantProduct = variantProductService.createVariantProduct(variantProductDTO);
+
+        if (createdVariantProduct != null) {
+            // Chuyển đổi sản phẩm biến thể đã tạo thành DTO và trả về trong ResponseEntity
+            VariantProductDTO createdVariantProductDTO = variantProductMapper.toVariantProductDTO(createdVariantProduct);
+            return new ResponseEntity<>(createdVariantProductDTO, HttpStatus.CREATED);
+        } else {
+            // Xử lý lỗi nếu cần
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     // API cập nhật thông tin sản phẩm biến thể
     @PutMapping("/{variantProductId}")
     public ResponseEntity<VariantProductDTO> updateVariantProduct(@PathVariable Long variantProductId, @RequestBody VariantProductDTO updatedVariantProductDTO) {
-        // Triển khai logic để cập nhật thông tin sản phẩm biến thể
-        // Sau khi cập nhật, trả về sản phẩm biến thể đã được cập nhật dưới dạng DTO
-        return null;
+        // Gọi Service để cập nhật thông tin sản phẩm biến thể
+        VariantProduct updatedVariantProduct = variantProductService.updateVariantProduct(variantProductId, updatedVariantProductDTO);
+
+        if (updatedVariantProduct != null) {
+            // Chuyển đổi sản phẩm biến thể đã cập nhật thành DTO và trả về trong ResponseEntity
+             updatedVariantProductDTO = variantProductMapper.toVariantProductDTO(updatedVariantProduct);
+            System.out.println("Thành Công");
+            return ResponseEntity.ok(updatedVariantProductDTO);
+        } else {
+            // Xử lý lỗi nếu sản phẩm biến thể không tồn tại
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // API xóa sản phẩm biến thể
