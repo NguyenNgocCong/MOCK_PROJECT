@@ -7,6 +7,8 @@ public class RegistrationDTO {
 
     private String fullName;
 
+    private String email;
+
     public String getUsername() {
         return username;
     }
@@ -37,5 +39,13 @@ public class RegistrationDTO {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

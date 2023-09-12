@@ -1,5 +1,7 @@
 package com.mock_project.mock_project.model;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -7,7 +9,7 @@ import jakarta.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -25,11 +27,11 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
 
-    public int getId() {
+    public Long getId(Long id) {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -64,4 +66,12 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setRoles(Set<Role> roles) {
+    }
+
+    public Set<Role> getRoles() {
+        return getRoles();
+    }
+    
 }

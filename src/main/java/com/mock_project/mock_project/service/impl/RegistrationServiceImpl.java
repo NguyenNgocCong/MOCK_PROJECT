@@ -1,16 +1,16 @@
 package com.mock_project.mock_project.service.impl;
 
-import java.io.UnsupportedEncodingException;
+
 import java.util.Collections;
 import java.util.Optional;
-
-import javax.management.relation.RoleNotFoundException;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mock_project.mock_project.dto.RegistrationDTO;
 import com.mock_project.mock_project.exception.UserNameExistedException;
+import com.mock_project.mock_project.exception.RoleNotFoundException;
+import com.mock_project.mock_project.model.Cart;
 import com.mock_project.mock_project.model.Role;
 // import com.mock_project.mock_project.model.RoleUser;
 import com.mock_project.mock_project.model.User;
@@ -18,7 +18,7 @@ import com.mock_project.mock_project.repository.UserRepository;
 import com.mock_project.mock_project.service.RegistrationService;
 import com.mock_project.mock_project.repository.RoleRepository;
 
-import jakarta.mail.MessagingException;
+
 import jakarta.transaction.Transactional;
 
 @Service
@@ -51,20 +51,21 @@ public class RegistrationServiceImpl implements RegistrationService{
         User mappedUser = new User();
         mappedUser.setUsername(registrationDTO.getUsername());
         mappedUser.setEmail(registrationDTO.getEmail());
-        mappedUser.setFullname(registrationDTO.getFullname());
+
+        mappedUser.setFullname(registrationDTO.getFullName());
         mappedUser.setPassword(registrationDTO.getPassword());
-        mappedUser.setRole(Collections.singleton(role.get()));
+        mappedUser.setRoles(Collections.singleton(role.get()));
+
+        mappedUser.setFullname(registrationDTO.getFullName());
+        mappedUser.setPassword(registrationDTO.getPassword());
+        mappedUser.setRoles(Collections.singleton(role.get()));
+
 
         mappedUser.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
 
         userRepository.save(mappedUser);
-    }
 
-
-    @Override
-    public void register(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'register'");
     }
+        //gọi phương thức tạo cart sau khi tạo một user mới
 
 }

@@ -27,7 +27,6 @@ public class CustomUserDetailServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
         User userEntity = user.get();
-//        return new CustomUserDetail(userEntity.getUsername(), userEntity.getPassword(), userEntity.getRoles());
-        return null;
+        return new CustomUserDetail(userEntity.getUsername(), userEntity.getPassword(), userEntity.getRoles());
     }
 }

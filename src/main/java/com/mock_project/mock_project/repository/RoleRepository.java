@@ -8,5 +8,4 @@ import com.mock_project.mock_project.model.Role;
 
 public interface RoleRepository extends JpaRepository<Role, Long>{
     Optional<Role> findByname(String name);
-    
 }
