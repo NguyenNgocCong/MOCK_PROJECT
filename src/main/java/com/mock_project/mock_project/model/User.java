@@ -1,5 +1,7 @@
 package com.mock_project.mock_project.model;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,13 +11,23 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
+
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "password", nullable = false)
     private String fullname;
+
+    @Column(name = "password", nullable = false)
     private String email;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
 
-    public Long getId() {
+    public Long getId(Long id) {
         return id;
     }
 
@@ -54,4 +66,12 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setRoles(Set<Role> roles) {
+    }
+
+    public Set<Role> getRoles() {
+        return getRoles();
+    }
+    
 }
