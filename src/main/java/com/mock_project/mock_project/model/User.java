@@ -17,10 +17,10 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "fullname", nullable = false)
     private String fullname;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
