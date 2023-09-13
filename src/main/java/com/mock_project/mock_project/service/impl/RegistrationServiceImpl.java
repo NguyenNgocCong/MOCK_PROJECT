@@ -17,6 +17,7 @@ import com.mock_project.mock_project.model.User;
 import com.mock_project.mock_project.repository.UserRepository;
 import com.mock_project.mock_project.service.RegistrationService;
 import com.mock_project.mock_project.repository.RoleRepository;
+import com.mock_project.mock_project.repository.CartRepository;
 
 
 import jakarta.transaction.Transactional;
@@ -26,11 +27,13 @@ public class RegistrationServiceImpl implements RegistrationService{
     
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final CartRepository cartRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public RegistrationServiceImpl (UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder){
+    public RegistrationServiceImpl (UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, CartRepository cartRepository){
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.cartRepository = cartRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -51,21 +54,16 @@ public class RegistrationServiceImpl implements RegistrationService{
         User mappedUser = new User();
         mappedUser.setUsername(registrationDTO.getUsername());
         mappedUser.setEmail(registrationDTO.getEmail());
-
         mappedUser.setFullname(registrationDTO.getFullName());
-        mappedUser.setPassword(registrationDTO.getPassword());
         mappedUser.setRoles(Collections.singleton(role.get()));
-
-        mappedUser.setFullname(registrationDTO.getFullName());
-        mappedUser.setPassword(registrationDTO.getPassword());
-        mappedUser.setRoles(Collections.singleton(role.get()));
-
 
         mappedUser.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
 
         userRepository.save(mappedUser);
 
-    }
-        //gọi phương thức tạo cart sau khi tạo một user mới
+        Cart cart = new Cart();
+        cart.setUser(mappedUser);
+        cartRepository.save(cart);
 
+    }
 }
