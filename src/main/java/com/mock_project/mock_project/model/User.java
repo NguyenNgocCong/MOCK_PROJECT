@@ -17,16 +17,16 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "fullname", nullable = false)
     private String fullname;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
-
+    
     public Long getId(Long id) {
         return id;
     }
