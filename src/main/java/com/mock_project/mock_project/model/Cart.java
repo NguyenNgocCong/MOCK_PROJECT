@@ -13,7 +13,7 @@ public class Cart {
 
     private Date createdDate;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "User_id")
     private User user;
 

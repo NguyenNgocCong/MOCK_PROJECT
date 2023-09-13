@@ -29,4 +29,6 @@ public class CustomUserDetailServiceImpl implements UserDetailsService {
         User userEntity = user.get();
         return new CustomUserDetail(userEntity.getUsername(), userEntity.getPassword(), userEntity.getRoles());
     }
+
+    
 }
