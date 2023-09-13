@@ -53,12 +53,8 @@ public class RegistrationServiceImpl implements RegistrationService{
         mappedUser.setEmail(registrationDTO.getEmail());
 
         mappedUser.setFullname(registrationDTO.getFullName());
-        mappedUser.setPassword(registrationDTO.getPassword());
         mappedUser.setRoles(Collections.singleton(role.get()));
 
-        mappedUser.setFullname(registrationDTO.getFullName());
-        mappedUser.setPassword(registrationDTO.getPassword());
-        mappedUser.setRoles(Collections.singleton(role.get()));
 
 
         mappedUser.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
