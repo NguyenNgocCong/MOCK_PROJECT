@@ -36,6 +36,7 @@ public class UserController {
                 }
             }
         } catch (ExpiredJwtException ex) {
+            userService.handleTokenExpired(userService.getUserById(id).get());
             return new ResponseEntity<>("Token expired", HttpStatus.UNAUTHORIZED); //401
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -49,6 +50,7 @@ public class UserController {
             User createdAccount = userService.updateUserOnline(user);
             return new ResponseEntity<>(createdAccount, HttpStatus.OK); //200
         } catch (ExpiredJwtException ex) {
+            userService.handleTokenExpired(user);
             return new ResponseEntity<>("Token expired", HttpStatus.UNAUTHORIZED); //401
         } catch (Exception ex) {
             ex.printStackTrace();
