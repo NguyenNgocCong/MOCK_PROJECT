@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         if (user.getToken() != null) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-            boolean existedUser = userRepository.existsById(user.getPureId());
+            boolean existedUser = userRepository.existsById(user.getId());
             if (existedUser) {
                 return userRepository.save(user);
             } else {
