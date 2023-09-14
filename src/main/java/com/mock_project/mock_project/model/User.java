@@ -26,8 +26,8 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
-
-    public Long getId(Long id) {
+    private Set<Role> roles;
+    public Long getId() {
         return id;
     }
 
@@ -68,10 +68,10 @@ public class User {
     }
 
     public void setRoles(Set<Role> roles) {
+        this.roles=roles;
     }
 
     public Set<Role> getRoles() {
-        return getRoles();
+        return roles;
     }
-    
 }
