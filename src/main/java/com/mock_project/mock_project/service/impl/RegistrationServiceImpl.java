@@ -79,5 +79,29 @@ public class RegistrationServiceImpl implements RegistrationService{
         newCart.setCreatedDate(new Date());
         newCart.setUserId(mappedUser); // Liên kết Cart với User
         cartRepository.save(newCart);
+// =======
+
+
+//         String userName = registrationDTO.getUsername();
+//         String token = JwtUtils.generateToken(userName);
+
+//         if (token != null && !token.isEmpty()) {
+//             // In giá trị token ra console
+//             System.out.println("Token: " + token);
+
+//             User mappedUser = new User();
+//             mappedUser.setUsername(registrationDTO.getUsername());
+//             mappedUser.setEmail(registrationDTO.getEmail());
+//             mappedUser.setFullname(registrationDTO.getFullName());
+//             mappedUser.setRoles(Collections.singleton(role.get()));
+//             mappedUser.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
+
+//             userRepository.save(mappedUser);
+//         } else {
+//             // Xử lý lỗi nếu không thể tạo ra token
+//             System.out.println("Lỗi");
+//         }
+//         // Trả về token trong phản hồi HTTP
+// >>>>>>> product_cong
     }
 }

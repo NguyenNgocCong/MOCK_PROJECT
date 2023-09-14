@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 
 import com.mock_project.mock_project.dto.AddressDTO;
 import com.mock_project.mock_project.exception.AddressNotFoundException;
@@ -16,6 +17,7 @@ import com.mock_project.mock_project.repository.AddressRepository;
 import com.mock_project.mock_project.repository.UserRepository;
 import com.mock_project.mock_project.service.AddressService;
 
+@Service
 public class AddressServiceImpl implements AddressService{
 
     @Autowired
@@ -73,4 +75,5 @@ public class AddressServiceImpl implements AddressService{
     //     addressDTO.setUserId(address.getUser().getId());
     //     return addressDTO;
     // }
+    
 }
