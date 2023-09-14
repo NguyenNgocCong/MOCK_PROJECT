@@ -38,6 +38,7 @@ public class LoginController {
             final String token = JwtUtils.generateToken(userDetails.getUsername());
             User user = userService.getByUsername(userDetails.getUsername()).get();
             user.setToken(token);
+            userService.updateUserOnline(user);
             return new ResponseEntity<>(token, HttpStatus.OK);
         } catch (BadCredentialsLoginException ex) {
             return new ResponseEntity<>("You have entered the wrong name and password", HttpStatus.BAD_REQUEST);
