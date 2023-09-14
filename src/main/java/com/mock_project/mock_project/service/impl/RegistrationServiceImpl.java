@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Optional;
 
+import com.mock_project.mock_project.utils.JwtUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -50,8 +53,8 @@ public class RegistrationServiceImpl implements RegistrationService{
 
         //Kiểm tra role này có trong database hay không
         Optional<Role> role = roleRepository.findByname(registrationDTO.getRole());
-        if (role.isEmpty()) {   
-            throw new RoleNotFoundException("Role not found");  
+        if (role.isEmpty()) {
+            throw new RoleNotFoundException("Role not found");
         }
 
         //Tạo mới một user
