@@ -1,7 +1,7 @@
 package com.mock_project.mock_project.service.impl;
 
 
-import com.mock_project.mock_project.dto.CustomUserDetail;
+import com.mock_project.mock_project.dto.impl.CustomUserDetailImpl;
 import com.mock_project.mock_project.model.User;
 import com.mock_project.mock_project.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +27,8 @@ public class CustomUserDetailServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
         User userEntity = user.get();
-        return new CustomUserDetail(userEntity.getUsername(), userEntity.getPassword(), userEntity.getRoles());
+        return new CustomUserDetailImpl(userEntity.getUsername(), userEntity.getPassword(), userEntity.getRoles());
     }
+
+    
 }

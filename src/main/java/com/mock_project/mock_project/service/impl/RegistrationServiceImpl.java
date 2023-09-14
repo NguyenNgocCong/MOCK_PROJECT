@@ -2,8 +2,12 @@ package com.mock_project.mock_project.service.impl;
 
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.Optional;
 
+import com.mock_project.mock_project.utils.JwtUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +21,7 @@ import com.mock_project.mock_project.model.User;
 import com.mock_project.mock_project.repository.UserRepository;
 import com.mock_project.mock_project.service.RegistrationService;
 import com.mock_project.mock_project.repository.RoleRepository;
+import com.mock_project.mock_project.repository.CartRepository;
 
 
 import jakarta.transaction.Transactional;
@@ -26,11 +31,13 @@ public class RegistrationServiceImpl implements RegistrationService{
     
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final CartRepository cartRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public RegistrationServiceImpl (UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder){
+    public RegistrationServiceImpl (UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, CartRepository cartRepository){
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.cartRepository = cartRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -38,30 +45,63 @@ public class RegistrationServiceImpl implements RegistrationService{
     @Override
     public void registration(RegistrationDTO registrationDTO){
 
+        //Kiểm tra user đã tồn tại hay chưa
         Optional<User> user = userRepository.findByUsername(registrationDTO.getUsername());
         if (user.isPresent()) {
             throw new UserNameExistedException("Username existed!");
         }
 
+        //Kiểm tra role này có trong database hay không
         Optional<Role> role = roleRepository.findByname(registrationDTO.getRole());
-        if (role.isEmpty()) {   
-            throw new RoleNotFoundException("Role not found");  
+        if (role.isEmpty()) {
+            throw new RoleNotFoundException("Role not found");
         }
 
+        //Tạo mới một user
         User mappedUser = new User();
         mappedUser.setUsername(registrationDTO.getUsername());
         mappedUser.setEmail(registrationDTO.getEmail());
-
         mappedUser.setFullname(registrationDTO.getFullName());
         mappedUser.setRoles(Collections.singleton(role.get()));
 
-
-
+        //Encode mật khẩu
         mappedUser.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
 
+        //Lưu user xuống database
         userRepository.save(mappedUser);
 
-    }
-        //gọi phương thức tạo cart sau khi tạo một user mới
+        // Thêm cart mới cho user vừa tạo
+                /* Cart mappedcart = new Cart();
+                // mappedcart.setUserId(mappedcart.getUserId());
+                // mappedcart.setCreatedDate(mappedcart.getCreatedDate());
+                cartRepository.save(mappedcart); */
+        Cart newCart = new Cart();
+        newCart.setCreatedDate(new Date());
+        newCart.setUserId(mappedUser); // Liên kết Cart với User
+        cartRepository.save(newCart);
+// =======
 
+
+//         String userName = registrationDTO.getUsername();
+//         String token = JwtUtils.generateToken(userName);
+
+//         if (token != null && !token.isEmpty()) {
+//             // In giá trị token ra console
+//             System.out.println("Token: " + token);
+
+//             User mappedUser = new User();
+//             mappedUser.setUsername(registrationDTO.getUsername());
+//             mappedUser.setEmail(registrationDTO.getEmail());
+//             mappedUser.setFullname(registrationDTO.getFullName());
+//             mappedUser.setRoles(Collections.singleton(role.get()));
+//             mappedUser.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
+
+//             userRepository.save(mappedUser);
+//         } else {
+//             // Xử lý lỗi nếu không thể tạo ra token
+//             System.out.println("Lỗi");
+//         }
+//         // Trả về token trong phản hồi HTTP
+// >>>>>>> product_cong
+    }
 }

@@ -1,4 +1,4 @@
-package com.mock_project.mock_project.dto;
+package com.mock_project.mock_project.dto.impl;
 
 
 import com.mock_project.mock_project.model.Role;
@@ -11,13 +11,13 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class CustomUserDetail implements UserDetails {
+public class CustomUserDetailImpl implements UserDetails {
 
     private String username;
     private String password;
     private Set<GrantedAuthority> authorities;
     private User user;
-    public CustomUserDetail(String username, String password, Set<Role> roles) {
+    public CustomUserDetailImpl(String username, String password, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.authorities = roles.stream()
