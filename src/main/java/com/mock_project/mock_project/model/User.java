@@ -27,7 +27,7 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
 
-    public Long getId(Long id) {
+    public Long getId() {
         return id;
     }
 
@@ -73,5 +73,4 @@ public class User {
     public Set<Role> getRoles() {
         return getRoles();
     }
-    
 }

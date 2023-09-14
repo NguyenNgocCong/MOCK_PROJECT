@@ -2,6 +2,7 @@ package com.mock_project.mock_project.service.impl;
 
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,29 +42,39 @@ public class RegistrationServiceImpl implements RegistrationService{
     @Override
     public void registration(RegistrationDTO registrationDTO){
 
+        //Kiểm tra user đã tồn tại hay chưa
         Optional<User> user = userRepository.findByUsername(registrationDTO.getUsername());
         if (user.isPresent()) {
             throw new UserNameExistedException("Username existed!");
         }
 
+        //Kiểm tra role này có trong database hay không
         Optional<Role> role = roleRepository.findByname(registrationDTO.getRole());
         if (role.isEmpty()) {   
             throw new RoleNotFoundException("Role not found");  
         }
 
+        //Tạo mới một user
         User mappedUser = new User();
         mappedUser.setUsername(registrationDTO.getUsername());
         mappedUser.setEmail(registrationDTO.getEmail());
         mappedUser.setFullname(registrationDTO.getFullName());
         mappedUser.setRoles(Collections.singleton(role.get()));
 
+        //Encode mật khẩu
         mappedUser.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
 
+        //Lưu user xuống database
         userRepository.save(mappedUser);
 
-        Cart cart = new Cart();
-        cart.setUser(mappedUser);
-        cartRepository.save(cart);
-
+        // Thêm cart mới cho user vừa tạo
+                /* Cart mappedcart = new Cart();
+                // mappedcart.setUserId(mappedcart.getUserId());
+                // mappedcart.setCreatedDate(mappedcart.getCreatedDate());
+                cartRepository.save(mappedcart); */
+        Cart newCart = new Cart();
+        newCart.setCreatedDate(new Date());
+        newCart.setUserId(mappedUser); // Liên kết Cart với User
+        cartRepository.save(newCart);
     }
 }

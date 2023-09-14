@@ -33,11 +33,11 @@ public class Cart {
         this.createdDate = createdDate;
     }
 
-    public User getUser() {
+    public User getUserId() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUserId(User user) {
         this.user = user;
     }
 }
