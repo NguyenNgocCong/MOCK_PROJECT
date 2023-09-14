@@ -5,6 +5,12 @@ public class AddressDTO {
     private String address;
     private Long userId;
 
+    public AddressDTO(Long id, String address, Long userId) {
+        this.id = id;
+        this.address = address;
+        this.userId = userId;
+    }
+
     public AddressDTO() {
     }
 
