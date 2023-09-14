@@ -15,7 +15,9 @@ import com.mock_project.mock_project.model.User;
 import com.mock_project.mock_project.repository.AddressRepository;
 import com.mock_project.mock_project.repository.UserRepository;
 import com.mock_project.mock_project.service.AddressService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AddressServiceImpl implements AddressService{
 
     @Autowired
@@ -25,14 +27,14 @@ public class AddressServiceImpl implements AddressService{
     private UserRepository userRepository;
 
     @Override
-    @PreAuthorize("hasRole('ADMIN')") // Chỉ admin mới có quyền
+//    @PreAuthorize("hasRole('ADMIN')") // Chỉ admin mới có quyền
     public List<AddressDTO> getAddressByUserId(Long userId) {
         List<AddressDTO> addresses = addressRepository.findByUserId(userId);
         return addresses;
     }
 
     @Override
-    @PreAuthorize("hasRole('ADMIN')") // Chỉ admin mới có quyền
+//    @PreAuthorize("hasRole('ADMIN')") // Chỉ admin mới có quyền
     public Address addAddress(AddressDTO addressDTO) {
         User user = userRepository.findById(addressDTO.getUserId())
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
@@ -43,7 +45,7 @@ public class AddressServiceImpl implements AddressService{
     }
 
     @Override
-    @PreAuthorize("hasRole('ADMIN')") // Chỉ admin mới có quyền
+//    @PreAuthorize("hasRole('ADMIN')") // Chỉ admin mới có quyền
     public Address updateAddress(Long addressId, AddressDTO addressDTO) {
         Address address = addressRepository.findById(addressId)
                 .orElseThrow(() -> new AddressNotFoundException("Address not found"));
@@ -52,7 +54,7 @@ public class AddressServiceImpl implements AddressService{
     }
 
     @Override
-    @PreAuthorize("hasRole('ADMIN')") // Chỉ admin mới có quyền
+//    @PreAuthorize("hasRole('ADMIN')") // Chỉ admin mới có quyền
     public Address deleteAddress(Long addressId) {
         Address address = addressRepository.findById(addressId)
                 .orElseThrow(() -> new AddressNotFoundException("Address not found"));
