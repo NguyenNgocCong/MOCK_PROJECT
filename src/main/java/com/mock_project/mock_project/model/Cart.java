@@ -13,7 +13,7 @@ public class Cart {
 
     private Date createdDate;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "User_id")
     private User user;
 
@@ -33,11 +33,11 @@ public class Cart {
         this.createdDate = createdDate;
     }
 
-    public User getUser() {
+    public User getUserId() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUserId(User user) {
         this.user = user;
     }
 }
