@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ public class AddressController {
     private AddressService addressService;
 
     @GetMapping("/{userId}")
+    @PreAuthorize("hasRole('ADMIN')") // Chỉ admin mới có quyền
     public ResponseEntity<List<AddressDTO>> getAddressByUserId(@PathVariable Long userId) {
         List<AddressDTO> addresses = addressService.getAddressByUserId(userId);
         return ResponseEntity.ok(addresses);
