@@ -3,6 +3,7 @@ package com.mock_project.mock_project.service.impl;
 import com.mock_project.mock_project.model.User;
 import com.mock_project.mock_project.repository.UserRepository;
 import com.mock_project.mock_project.service.UserService;
+import com.mock_project.mock_project.utils.JwtUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,5 +54,11 @@ public class UserServiceImpl implements UserService {
             }
         }
         throw new RuntimeException("User's offline, can't update");
+    }
+
+    @Override
+    public void handleTokenExpired(User user) {
+        user.setToken(null);
+        userRepository.save(user);
     }
 }

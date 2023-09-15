@@ -10,4 +10,5 @@ public interface UserService {
     List<User> getAllUserOnline();
     Optional<User> getUserById(Long id);
     User updateUserOnline(User user);
+    void handleTokenExpired(User user);
 }
