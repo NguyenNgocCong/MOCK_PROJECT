@@ -13,4 +13,6 @@ public interface ProductService {
     void deleteProduct(Long productId);
     ProductDetailDTO getProductDetailById(Long productId);
     List<VariantProductDTO> getVariantProductsById(Long id);
+    List<Product> getProductsByCategory(Long categoryId, int pageNo, int pageSize);
+
 }

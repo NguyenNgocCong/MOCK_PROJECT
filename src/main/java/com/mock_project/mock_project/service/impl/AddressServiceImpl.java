@@ -16,6 +16,7 @@ import com.mock_project.mock_project.model.User;
 import com.mock_project.mock_project.repository.AddressRepository;
 import com.mock_project.mock_project.repository.UserRepository;
 import com.mock_project.mock_project.service.AddressService;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AddressServiceImpl implements AddressService{
@@ -62,18 +63,5 @@ public class AddressServiceImpl implements AddressService{
         return address;
     }
 
-    // private List<AddressDTO> convertToDTOList(List<Address> addresses) {
-    //     return addresses.stream()
-    //             .map(this::convertToDTO)
-    //             .collect(Collectors.toList());
-    // }
 
-    // private AddressDTO convertToDTO(Address address) {
-    //     AddressDTO addressDTO = new AddressDTO();
-    //     addressDTO.setId(address.getId());
-    //     addressDTO.setAddress(address.getAddress());
-    //     addressDTO.setUserId(address.getUser().getId());
-    //     return addressDTO;
-    // }
-    
 }
