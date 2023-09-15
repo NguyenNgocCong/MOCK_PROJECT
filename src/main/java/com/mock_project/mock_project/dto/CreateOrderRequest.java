@@ -1,22 +1,18 @@
 package com.mock_project.mock_project.dto;
 
+import com.mock_project.mock_project.model.Address;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class CreateOrderRequest {
 
-    private Long userId; // ID của người dùng đặt hàng (nếu cần)
-    private List<OrderItemRequest> orderItems; // Danh sách các mặt hàng trong đơn hàng
-    private String shippingAddress; // Địa chỉ giao hàng
-    private String recipientName; // Tên người nhận
-    private LocalDateTime deliveryTime; // Thời gian giao hàng (nếu cần)
+    private Long userId;
+    private List<OrderItemRequest> orderItems;
+    private Address shippingAddress;
+    private LocalDateTime deliveryTime;
     private Recipient recipient;
-
-    public Recipient getRecipient() {
-        return recipient;
-    }
-
-    // Constructors, getters, and setters
+    private List<CartLineItemRequest> cartItems;
 
     public Long getUserId() {
         return userId;
@@ -34,33 +30,31 @@ public class CreateOrderRequest {
         this.orderItems = orderItems;
     }
 
-    public String getShippingAddress() {
+    public Address getShippingAddress() {
         return shippingAddress;
     }
 
-    public void setShippingAddress(String shippingAddress) {
+    public void setShippingAddress(Address shippingAddress) {
         this.shippingAddress = shippingAddress;
-    }
-
-    public String getRecipientName() {
-        return recipientName;
-    }
-
-    public void setRecipientName(String recipientName) {
-        this.recipientName = recipientName;
     }
 
     public LocalDateTime getDeliveryTime() {
         return deliveryTime;
     }
 
+
+
     public void setDeliveryTime(LocalDateTime deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
 
-    // Các trường và phương thức khác của CreateOrderRequest
+    public Recipient getRecipient() {
+        return recipient;
+    }
 
-    private List<CartLineItemRequest> cartItems;
+    public void setRecipient(Recipient recipient) {
+        this.recipient = recipient;
+    }
 
     public List<CartLineItemRequest> getCartItems() {
         return cartItems;
@@ -70,28 +64,8 @@ public class CreateOrderRequest {
         this.cartItems = cartItems;
     }
 
-    private String recipientAddress;
-    private String recipientPhoneNumber;
-
-    public String getRecipientAddress() {
-        return recipientAddress;
-    }
-
-    public void setRecipientAddress(String recipientAddress) {
-        this.recipientAddress = recipientAddress;
-    }
-
-    public String getRecipientPhoneNumber() {
-        return recipientPhoneNumber;
-    }
-
-    public void setRecipientPhoneNumber(String recipientPhoneNumber) {
-        this.recipientPhoneNumber = recipientPhoneNumber;
-    }
-
-
-    public void setRecipient(Recipient recipient) {
-        this.recipient = recipient;
+    public Address createShippingAddress() {
+        // Nếu cần thêm các trường thông tin khác của địa chỉ, hãy thêm ở đây
+        return this.shippingAddress;
     }
 }
-

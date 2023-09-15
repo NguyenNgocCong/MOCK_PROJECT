@@ -4,7 +4,7 @@ import com.mock_project.mock_project.dto.Recipient;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "\"order\"")
@@ -14,8 +14,8 @@ public class Order {
     private Long id;
 
     private String address;
-    private Timestamp deliveryTime;
-    private float totalPrice;
+    private LocalDateTime deliveryTime;
+    private BigDecimal totalPrice;
 
     public Long getId() {
         return id;
@@ -33,15 +33,15 @@ public class Order {
         this.address = address;
     }
 
-    public Timestamp getDeliveryTime() {
+    public LocalDateTime getDeliveryTime() {
         return deliveryTime;
     }
 
-    public void setDeliveryTime(Timestamp deliveryTime) {
+    public void setDeliveryTime(LocalDateTime deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
 
-    public float getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
@@ -59,8 +59,9 @@ public class Order {
     }
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Recipient recipient; // Sử dụng CascadeType.ALL để đồng bộ hóa thay đổi thông tin người nhận
+    @OneToOne
+    @JoinColumn(name = "recipient_id") // Đây là khóa ngoại tham chiếu đến thông tin người nhận
+    private Recipient recipient;
 
     public void setRecipient(Recipient recipient) {
         this.recipient = recipient;

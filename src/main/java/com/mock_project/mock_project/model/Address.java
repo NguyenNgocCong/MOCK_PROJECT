@@ -10,6 +10,7 @@ public class Address {
     private Long id;
 
     private String address;
+    private String streetAddress; // Thêm trường địa chỉ
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -37,5 +38,13 @@ public class Address {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
     }
 }
