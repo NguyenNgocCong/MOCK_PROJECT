@@ -1,7 +1,9 @@
 package com.mock_project.mock_project.model;
 
+import com.mock_project.mock_project.dto.Recipient;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.security.Timestamp;
 
 @Entity
@@ -43,7 +45,24 @@ public class Order {
         return totalPrice;
     }
 
-    public void setTotalPrice(float totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL) // Sử dụng CascadeType.ALL để đồng bộ hóa thay đổi địa chỉ giao hàng
+    private Address shippingAddress;
+
+    // Constructors, getters, và setters
+
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Recipient recipient; // Sử dụng CascadeType.ALL để đồng bộ hóa thay đổi thông tin người nhận
+
+    public void setRecipient(Recipient recipient) {
+        this.recipient = recipient;
     }
 }

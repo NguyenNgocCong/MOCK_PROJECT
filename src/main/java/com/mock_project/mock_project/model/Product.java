@@ -1,6 +1,7 @@
 package com.mock_project.mock_project.model;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -11,7 +12,7 @@ public class Product {
     private Long id;
 
     private String name;
-
+    private BigDecimal price;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -47,5 +48,9 @@ public class Product {
 
     public void setVariantProducts(List<VariantProduct> variantProducts) {
         this.variantProducts = variantProducts;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
     }
 }

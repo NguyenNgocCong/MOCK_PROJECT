@@ -2,7 +2,9 @@ package com.mock_project.mock_project.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Cart")
@@ -10,7 +12,9 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    private List<CartLineItem> cartLineItems;
+    private BigDecimal totalPrice;
     private Date createdDate;
 
     @ManyToOne
@@ -39,5 +43,13 @@ public class Cart {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<CartLineItem> getCartItems() {
+        return cartLineItems;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

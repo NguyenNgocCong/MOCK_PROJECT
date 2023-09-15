@@ -28,6 +28,8 @@ public class CartLineItem {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
+    @ManyToOne
+    private Product product;
 
     public Long getId() {
         return id;
@@ -91,5 +93,13 @@ public class CartLineItem {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Product getProduct() {
+        return product;
     }
 }
