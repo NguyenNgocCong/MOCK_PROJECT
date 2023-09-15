@@ -61,4 +61,15 @@ public class UserServiceImpl implements UserService {
         user.setToken(null);
         userRepository.save(user);
     }
+    @Transactional
+    @Override
+    public User updateUser(User user) {
+
+            boolean existedUser = userRepository.existsById(user.getId());
+            if (existedUser) {
+                return userRepository.save(user);
+            } else {
+                throw new RuntimeException("Not found user");
+            }
+    }
 }
