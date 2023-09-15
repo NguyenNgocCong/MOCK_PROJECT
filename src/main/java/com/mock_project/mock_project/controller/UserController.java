@@ -58,8 +58,8 @@ public class UserController {
         }
     }
 
-    @PutMapping("/logout")
-    ResponseEntity<?> logout(@RequestBody Long id) {
+    @PutMapping("/logout/{id}")
+    ResponseEntity<?> logout(@PathVariable("id") Long id) {
         try {
             Optional<User> user = userService.getUserById(id);
             if (user.isEmpty()) {
@@ -67,7 +67,8 @@ public class UserController {
             } else {
                 User tempAccount = user.get();
                 tempAccount.setToken(null);
-                userService.updateUserOnline(tempAccount);
+
+                userService.updateUser(tempAccount);
                 return new ResponseEntity<>("Logout success", HttpStatus.OK);
             }
         } catch (Exception ex) {
