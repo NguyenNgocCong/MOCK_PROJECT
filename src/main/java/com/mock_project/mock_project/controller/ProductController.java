@@ -9,6 +9,7 @@ import com.mock_project.mock_project.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class ProductController {
 
     // API cập nhật thông tin sản phẩm
     @PutMapping("/{productId}")
+    @PreAuthorize("hasRole('ADMIN')") // Chỉ admin mới có quyền
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long productId, @RequestBody ProductDTO updatedProductDTO) {
         // Gọi ProductService để cập nhật thông tin sản phẩm
         Product updatedProduct = productService.updateProduct(productId, updatedProductDTO);

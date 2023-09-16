@@ -60,7 +60,7 @@ public class VariantProductController {
         // Trả về thông báo xóa thành công
         return null;
     }
-    @GetMapping("/{productId}/variant-products")
+    @GetMapping("/{productId}")
     public ResponseEntity<List<VariantProductDTO>> getVariantProductsByProductId(@PathVariable Long productId) {
         List<VariantProductDTO> variantProducts = variantProductService.getVariantProductsByProductId(productId);
         return ResponseEntity.ok(variantProducts);

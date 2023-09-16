@@ -51,6 +51,7 @@ public class JwtSecurityConfig {
                                 .requestMatchers(HttpMethod.PUT,"/addresses").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE,"/addresses").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET,"/addresses").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/products/**").hasRole("ADMIN")
                                 // .requestMatchers("/user/**").hasRole("USER")
                                 .anyRequest().authenticated()
                 ).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

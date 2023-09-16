@@ -27,7 +27,7 @@ public class AddressController {
     private AddressService addressService;
 
     @GetMapping("/{userId}")
-    @PreAuthorize("hasRole('ADMIN')") // Chỉ admin mới có quyền
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // Chỉ admin mới có quyền
     public ResponseEntity<List<AddressDTO>> getAddressByUserId(@PathVariable Long userId) {
         List<AddressDTO> addresses = addressService.getAddressByUserId(userId);
         return ResponseEntity.ok(addresses);
