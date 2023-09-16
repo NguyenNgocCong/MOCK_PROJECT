@@ -44,13 +44,6 @@ public class JwtSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorization -> authorization
-<<<<<<< HEAD
-                                .requestMatchers("/home").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/registration").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
-                                .requestMatchers("/user/**").hasRole("USER")
-=======
                                  .requestMatchers("/home").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/registration").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
@@ -59,7 +52,6 @@ public class JwtSecurityConfig {
                                 .requestMatchers(HttpMethod.DELETE,"/addresses").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET,"/addresses").hasRole("ADMIN")
                                 // .requestMatchers("/user/**").hasRole("USER")
->>>>>>> master
                                 .anyRequest().authenticated()
                 ).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
