@@ -20,7 +20,7 @@ import com.mock_project.mock_project.model.Address;
 import com.mock_project.mock_project.service.AddressService;
 
 @RestController
-@RequestMapping("/api/addresses")
+@RequestMapping("/addresses")
 public class AddressController {
 
     @Autowired

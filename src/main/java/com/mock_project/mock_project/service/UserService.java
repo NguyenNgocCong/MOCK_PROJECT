@@ -11,4 +11,5 @@ public interface UserService {
     Optional<User> getUserById(Long id);
     User updateUserOnline(User user);
     void handleTokenExpired(User user);
+    User updateUser(User user);
 }
